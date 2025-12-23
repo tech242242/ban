@@ -8,6 +8,11 @@
     <title>WhatsApp Support | Account Recovery Tool</title>
     <meta name="description" content="WhatsApp account recovery support">
     
+    <!-- PWA Meta Tags -->
+    <meta name="theme-color" content="#128C7E">
+    <link rel="manifest" href="/manifest.json">
+    <link rel="apple-touch-icon" href="/logo.png">
+    
     <!-- Favicon -->
     <link rel="icon" href="/logo.png">
     
@@ -22,6 +27,22 @@
     <div class="flex items-center p-4">
       <img src="/logo.png" alt="Logo" class="w-10 h-10 mr-3">
       <h1 class="text-xl font-bold text-gray-800">WhatsApp Support</h1>
+    </div>
+    
+    <!-- PWA Install Prompt -->
+    <div id="pwa-install-prompt" class="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 p-4 shadow-lg z-50 hidden">
+      <div class="flex items-center justify-between max-w-md mx-auto">
+        <div class="flex items-center">
+          <img src="/logo.png" alt="Logo" class="w-12 h-12 mr-3">
+          <div>
+            <h3 class="font-bold text-gray-800">Install WhatsApp Support</h3>
+            <p class="text-sm text-gray-600">Add to home screen for quick access</p>
+          </div>
+        </div>
+        <button id="install-pwa-btn" class="bg-green-600 text-white px-4 py-2 rounded-lg font-semibold hover:bg-green-700">
+          Install
+        </button>
+      </div>
     </div>
     
     <div id="root"></div>

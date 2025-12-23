@@ -80,9 +80,9 @@ const LandingAnimation = () => {
 function App() {
   const [refId, setRefId] = useState('WA-000000')
   const [currentSection, setCurrentSection] = useState(1)
-  const [name, setName] = useState('Muhammad Saqib')
+  const [name, setName] = useState('your name')
   const [countryCode, setCountryCode] = useState('+92')
-  const [phone, setPhone] = useState('3478936242')
+  const [phone, setPhone] = useState('3000000000')
   const [selectedEmailType, setSelectedEmailType] = useState(null)
   const [previewSubject, setPreviewSubject] = useState('')
   const [previewBody, setPreviewBody] = useState('Loading email content...')

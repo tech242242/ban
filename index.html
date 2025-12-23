@@ -3,15 +3,27 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    
+    <!-- Basic Meta Tags -->
     <title>WhatsApp Support | Account Recovery Tool</title>
-
-    <!-- Tailwind CDN (quick start, no separate build-step needed) -->
+    <meta name="description" content="WhatsApp account recovery support">
+    
+    <!-- Favicon -->
+    <link rel="icon" href="/logo.png">
+    
+    <!-- Tailwind CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
 
-    <!-- Allow the app to use the Inter font -->
+    <!-- Inter Font -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   </head>
   <body>
+    <!-- Simple Logo with Title -->
+    <div class="flex items-center p-4">
+      <img src="/logo.png" alt="Logo" class="w-10 h-10 mr-3">
+      <h1 class="text-xl font-bold text-gray-800">WhatsApp Support</h1>
+    </div>
+    
     <div id="root"></div>
     <script type="module" src="/src/main.jsx"></script>
   </body>

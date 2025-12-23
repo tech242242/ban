@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import './App.css';
+
 // PWA Install Prompt Component
 const PWAInstallPrompt = ({ show, onInstall, onHide }) => {
   if (!show) return null;
@@ -39,7 +40,8 @@ const PWAInstallPrompt = ({ show, onInstall, onHide }) => {
     </div>
   );
 };
-// Landing Animation Component (Only this remains)
+
+// Landing Animation Component
 const LandingAnimation = () => {
   const [isVisible, setIsVisible] = useState(true);
 
@@ -85,12 +87,46 @@ function App() {
   const [previewSubject, setPreviewSubject] = useState('')
   const [previewBody, setPreviewBody] = useState('Loading email content...')
   const [showLanding, setShowLanding] = useState(true)
+  
+  // PWA Install State
+  const [showInstallPrompt, setShowInstallPrompt] = useState(false);
+  const [deferredPrompt, setDeferredPrompt] = useState(null);
 
   useEffect(() => {
+    // PWA Installation Logic
+    const isAppInstalled = window.matchMedia('(display-mode: standalone)').matches;
+    
+    if (!isAppInstalled) {
+      const handleBeforeInstallPrompt = (e) => {
+        e.preventDefault();
+        setDeferredPrompt(e);
+        
+        // Show install prompt after landing animation
+        setTimeout(() => {
+          setShowInstallPrompt(true);
+        }, 3000);
+      };
+
+      const handleAppInstalled = () => {
+        console.log('App was installed');
+        setShowInstallPrompt(false);
+      };
+
+      window.addEventListener('beforeinstallprompt', handleBeforeInstallPrompt);
+      window.addEventListener('appinstalled', handleAppInstalled);
+
+      return () => {
+        window.removeEventListener('beforeinstallprompt', handleBeforeInstallPrompt);
+        window.removeEventListener('appinstalled', handleAppInstalled);
+      };
+    }
+    
+    // Original landing animation timer
     const landingTimer = setTimeout(() => {
       setShowLanding(false)
     }, 2500)
     
+    // Original ref ID generation
     const rand = Math.floor(100000 + Math.random() * 900000)
     const id = 'WA-' + rand
     setRefId(id)
@@ -221,9 +257,35 @@ Pakistan`
     setTimeout(() => el.remove(), 6000)
   }
 
+  // PWA Install Functions
+  const installPWA = async () => {
+    if (!deferredPrompt) return;
+    
+    deferredPrompt.prompt();
+    const { outcome } = await deferredPrompt.userChoice;
+    
+    if (outcome === 'accepted') {
+      console.log('User accepted the install prompt');
+      setShowInstallPrompt(false);
+    }
+    
+    setDeferredPrompt(null);
+  };
+
+  const hideInstallPrompt = () => {
+    setShowInstallPrompt(false);
+  };
+
   return (
     <div className="min-h-screen bg-gradient-to-b from-gray-50 to-white">
       {showLanding && <LandingAnimation />}
+      
+      {/* PWA Install Prompt */}
+      <PWAInstallPrompt 
+        show={showInstallPrompt && !showLanding}
+        onInstall={installPWA}
+        onHide={hideInstallPrompt}
+      />
       
       <div className="flex items-center justify-center min-h-screen p-4">
         <div className="w-full max-w-md glass-card overflow-hidden">

@@ -111,6 +111,29 @@
   100% { opacity: 0; visibility: hidden; }
 }
 
+/* PWA Install Prompt Animation */
+@keyframes slideUp {
+  from {
+    transform: translateY(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.animate-slideUp {
+  animation: slideUp 0.3s ease-out;
+}
+
+/* Hide PWA prompt on mobile when keyboard appears */
+@media (max-height: 500px) {
+  .animate-slideUp {
+    display: none;
+  }
+}
+
 /* Original styles from existing app */
 .glass-card {
   background: rgba(255, 255, 255, 0.95);
@@ -196,5 +219,9 @@
   .phone {
     width: 50px;
     height: 50px;
+  }
+  
+  .animate-slideUp {
+    animation: slideUp 0.4s ease-out;
   }
 }
